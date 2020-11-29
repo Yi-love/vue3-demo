@@ -1,22 +1,38 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3.0 + Vite" />
-  {{x}}
+  <HelloWorld :msg="msg" />
+  <button @click="changeMsg">
+    按钮
+  </button>
+  {{ x }}
+  {{ y }}
 </template>
 
 <script lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-
+import HelloWorld from './components/HelloWorld.vue';
+import { computed, ref } from 'vue';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
   },
-  setup(props) {
-    let x:number = 4;
-  return {
-    x
-  }
-  }
-}
+  setup(){
+    // ref
+    let x = ref(4);
+    let msg = ref('hello meesage.');
+    let changeMsg = () : void => {
+      msg.value = 'change....' + new Date();
+    };
+    // computed
+    let y = computed(() => {
+      return x.value + 1;
+    });
+    return {
+      x,
+      y,
+      msg,
+      changeMsg
+    };
+  },
+};
 </script>
